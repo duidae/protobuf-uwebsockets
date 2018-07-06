@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--載入jQuery-->
+<script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+<script>
+
+//echo-protocol為約定好的自訂protocol 在WebSocket Server端也要設定
+var mySocket = new WebSocket("ws://localhost:8080", "echo-protocol");
+
+//Socket接收訊息時會呼叫此函數，處理接收到的訊息
+mySocket.onmessage = function(e) {
+	$('#message').html(e.data);
+}
+
+mySocket.onopen = function(e) {
+	mySocket.send('連線完成！');
+}
+
+function sendMessage() {
+	message = $('#userInput').val();
+	//傳送訊息給Server
+	mySocket.send(message);
+	$('#userInput').val('');
+}
+
+</script>
+</head>
+<body>
+<div id="userDiv">
+	<input type="text" id="userInput">
+	<button id="sendButton" onClick="sendMessage()">Send</button>
+</div>
+<div id="message"></div>
+</body>
+</html>
