@@ -6,3 +6,7 @@
 * client-server model
   * client: browser
   * server: backend
+  
+##TODO
+* client javascript version
+* server: how to get websocket payload using uWebSockets?
